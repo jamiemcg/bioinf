@@ -6,7 +6,7 @@ This site will contain a number of Bioinformatics/Biology related functions.
 - [x] DNA translation
 - [x] GC content
 - [ ] Molecular weight
-- [ ] Primer melting point
+- [X] Primer melting point
 
 Everything is written using HTML5 and JavaScript.
 
