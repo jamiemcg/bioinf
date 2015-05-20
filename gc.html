@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>GC Content Calculator - Bioinformatics Functions</title>
+        <meta name="description" content="A collection of Bioinformatics/Biology Tools">
+        <meta name="keywords" content="Biology, Bioinformatics, DNA, Melting Point, Translation, Complement, GC Content">
+        <meta name="author" content="Jamie McGowan">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+    <body>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="index.html">Home</a></li>
+            <li role="presentation"><a href="complement.html">Complementary Strand</a></li>
+            <li role="presentation"><a href="#">DNA Molecular Weight</a></li>
+            <li role="presentation" class="active"><a href="#">GC Content</a></li>
+            <li role="presentation"><a href="#">Primer Melting Point</a></li>
+            <li role="presentation"><a href="#">Translation</a></li>
+        </ul>
+
+        <div class="page_container">
+            <h1>GC Content Calculator</h1>
+            <p>Enter your DNA sequence in the box below:</p>
+            <textarea cols="60" rows="7" id="sequence"></textarea><br>
+            <button id="calculate" type="button" class="btn btn-primary" onclick="gc();">Calculate</button>
+            <button id="clear" type="button" class="btn btn-danger" onclick="clearInputGC();">Clear</button>
+            <br><br>
+
+            <!-- Table to store results -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <p>Results</p>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Base</td><td>Count</td><td>%</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A</td><td id="a_count">0</td><td id="a_per">00.00</td>
+                        </tr>
+                        <tr>
+                            <td>C</td><td id="c_count">0</td><td id="c_per">00.00</td>
+                        </tr>
+                        <tr>
+                            <td>G</td><td id="g_count">0</td><td id="g_per">00.00</td>
+                        </tr>
+                        <tr>
+                            <td>T</td><td id="t_count">0</td><td id="t_per">00.00</td>
+                        </tr>
+                        <tr>
+                            <td>Error</td><td id="error_count">0</td><td id="error_per">00.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">&copy; Jamie McGowan, 2015</p>
+            </div>
+        </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
