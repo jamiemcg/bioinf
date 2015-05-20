@@ -26,18 +26,26 @@
             <textarea cols="60" rows="7" id="sequence"></textarea>
             <div class="radio">
                 <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="complement" value="option1" checked> Complement
+                    <input type="radio" name="complement_options" id="complement" value="complement" checked> Complement
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="complement" value="option2"> Reverse
+                    <input type="radio" name="complement_options" id="complement" value="reverse"> Reverse
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="complement" value="option3"> Reverse Complement
+                    <input type="radio" name="complement_options" id="complement" value="reverse_complement"> Reverse Complement
                 </label>
             </div>
-            <button id="calculate" type="button" class="btn btn-primary">Calculate</button>
-            <button id="clear" type="button" class="btn btn-danger">Clear</button>
+            <button id="calculate" type="button" class="btn btn-primary" onclick="generateComplement();">Generate</button>
+            <button id="clear" type="button" class="btn btn-danger" onclick="clearInput();">Clear</button>
+
+            <br><br>
+            <!-- results shown here, hidden on page load -->
+            <div id="results_container" style="display: none;">
+                <h4>Result:</h4>
+                <p id="result_sequence"></p>
+            </div>
         </div>
+
 
         <footer class="footer">
             <div class="container">

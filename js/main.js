@@ -1,10 +1,14 @@
 function clearInput() {
     $("#sequence").val("");
     $("#sequence").focus();
+    $("#result_sequence").html("");
+    $("#results_container").hide(500); //show the element
 }
 
 
 function clearInputGC() {
+    $("#results").hide(500);
+
     $("#sequence").val("");
     $("#sequence").focus();
     $("#a_count").html("0");
@@ -18,6 +22,7 @@ function clearInputGC() {
     $("#g_per").html("00.00");
     $("#t_per").html("00.00");
     $("#error_per").html("00.00");
+    $("#gc_content").html("00.00");
 }
 
 function gc() {
@@ -55,9 +60,72 @@ function gc() {
     var t_per = (t/sequence.length * 100).toFixed(2);
     var error_per = (n/sequence.length * 100).toFixed(2);
 
+    var gc_per = ((g+c)/sequence.length * 100).toFixed(2);
+
+    $("#gc_content").html(gc_per);
+
     $("#a_per").html(a_per);
     $("#c_per").html(c_per);
     $("#g_per").html(g_per);
     $("#t_per").html(t_per);
     $("#error_per").html(error_per);
+
+    $("#results").show(500);
+}
+
+function generateComplement() {
+    var sequence = $("#sequence").val().toUpperCase();
+    var result = "";
+    var opt = $('input[name="complement_options"]:checked').val() //Get user specified option
+
+    if(opt == "reverse") {
+        result = sequence.split("").reverse().join("");
+    }
+    else if (opt = "complement") {
+        for(var i = 0; i < sequence.length; i++) {
+            if(sequence.charAt(i) == "A") {
+                result += "T";
+            }
+            else if(sequence.charAt(i) == "C") {
+                result += "G";
+            }
+            else if(sequence.charAt(i) == "G") {
+                result += "C";
+            }
+            else if(sequence.charAt(i) == "T") {
+                result += "A";
+            }
+            else {
+                result += "X";
+            }
+        }
+    }
+    else if (opt = "reverse_complement") {
+        sequence = sequence.split("").reverse().join("");
+        for(var i = 0; i < sequence.length; i++) {
+            if(sequence.charAt(i) == "A") {
+                result += "T";
+            }
+            else if(sequence.charAt(i) == "C") {
+                result += "G";
+            }
+            else if(sequence.charAt(i) == "G") {
+                result += "C";
+            }
+            else if(sequence.charAt(i) == "T") {
+                result += "A";
+            }
+            else {
+                result += "X";
+            }
+        }
+    }
+    else {
+        alert("An error has occurred!");
+    }
+
+
+    $("#result_sequence").html(result);
+    $("#results_container").show(500); //show the element
+
 }

@@ -28,10 +28,11 @@
             <button id="clear" type="button" class="btn btn-danger" onclick="clearInputGC();">Clear</button>
             <br><br>
 
-            <!-- Table to store results -->
-            <div class="panel panel-default">
+            <!-- Table to store results, hidden on page load -->
+            <div class="panel panel-default" id="results" style="display: none;">
                 <div class="panel-heading">
                     <p>Results</p>
+                    <p>GC content: <span id="gc_content">00.00</span>%</p>
                 </div>
                 <table class="table">
                     <thead>

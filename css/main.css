@@ -31,3 +31,7 @@ body {
 .panel-heading, thead {
     font-weight: bold;
 }
+
+#result_sequence {
+    word-wrap: break-word;
+}
