@@ -84,7 +84,7 @@ function generateComplement() {
         if(opt == "reverse") {
             result = sequence.split("").reverse().join("");
         }
-        else if (opt = "complement") {
+        else if (opt == "complement") {
             for(var i = 0; i < sequence.length; i++) {
                 if(sequence.charAt(i) == "A") {
                     result += "T";
@@ -103,7 +103,7 @@ function generateComplement() {
                 }
             }
         }
-        else if (opt = "reverse_complement") {
+        else if (opt == "reverse_complement") {
             sequence = sequence.split("").reverse().join("");
             for(var i = 0; i < sequence.length; i++) {
                 if(sequence.charAt(i) == "A") {
