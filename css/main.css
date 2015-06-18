@@ -1,5 +1,8 @@
 .jumbotron {
     background-color: white;
+    padding-bottom: 0px;
+    border-bottom: 0px;
+    padding-top: 2px;
 }
 
 /* BEGIN: Sticky footer */
@@ -32,6 +35,14 @@ body {
     font-weight: bold;
 }
 
-#result_sequence {
+#result_sequence, #result {
     word-wrap: break-word;
+}
+
+.stop {
+    background-color: #f75c5c;
+}
+
+.start {
+    background-color: #aaf75c;
 }

@@ -27,6 +27,7 @@ function clearInputGC() {
 
 function gc() {
     var sequence = $("#sequence").val().toUpperCase();
+    sequence = sequence.replace(/(\r\n|\n|\r)/gm,""); //Remove new lines \n
     if(sequence.length != 0) {
         var a = 0, c = 0, g = 0, t = 0, n = 0;
 
@@ -41,7 +42,7 @@ function gc() {
             else if(sequence.charAt(i) == "G") {
                 g++;
             }
-            else if(sequence.charAt(i) == "T") {
+            else if(sequence.charAt(i) == "T" || sequence.charAt(i) == "U") {
                 t++;
             }
             else {
@@ -77,6 +78,7 @@ function gc() {
 
 function generateComplement() {
     var sequence = $("#sequence").val().toUpperCase();
+    sequence = sequence.replace(/(\r\n|\n|\r)/gm,""); //Remove new lines \n
     if(sequence.length != 0) {
         var result = "";
         var opt = $('input[name="complement_options"]:checked').val() //Get user specified option
@@ -135,13 +137,14 @@ function generateComplement() {
 
 function primerMP() {
     var sequence = $("#sequence").val().toUpperCase();
+    sequence = sequence.replace(/(\r\n|\n|\r)/gm,""); //Remove new lines \n
     if(sequence.length != 0) {
         var cg = 0;
         var at = 0;
         var err = 0;
 
         for(var i = 0; i < sequence.length; i++) {
-            if(sequence.charAt(i) == "A" || sequence.charAt(i) == "T") {
+            if(sequence.charAt(i) == "A" || sequence.charAt(i) == "T" || sequence.charAt(i) == "U") {
                 at++;
             }
             else if(sequence.charAt(i) == "C" || sequence.charAt(i) == "G") {

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>DNA Complement Generator - Bioinformatics Functions</title>
+        <title>DNA Complement Generator - Bioinformatics Tools</title>
         <meta name="description" content="A collection of Bioinformatics/Biology Tools">
         <meta name="keywords" content="Biology, Bioinformatics, DNA, Melting Point, Translation, Complement, GC Content">
         <meta name="author" content="Jamie McGowan">
@@ -13,17 +13,20 @@
     <body>
         <ul class="nav nav-pills">
             <li role="presentation"><a href="index.html">Home</a></li>
+            <li role="presentation" class="disabled"><a href="#">Codon Usage</a></li>
             <li role="presentation" class="active"><a href="#">Complementary Strand</a></li>
             <li role="presentation" class="disabled"><a href="#">DNA Molecular Weight</a></li>
             <li role="presentation"><a href="gc.html">GC Content</a></li>
             <li role="presentation"><a href="primer.html">Primer Melting Point</a></li>
-            <li role="presentation" class="disabled"><a href="#">Translation</a></li>
+            <li role="presentation" class="disabled"><a href="#">Transcription</a></li>
+            <li role="presentation"><a href="translation.html">Translation</a></li>
         </ul>
 
         <div class="page_container">
             <h1>DNA Complement Generator</h1>
+            <p>This program generates the complement or reverse complement of a DNA sequence.
             <p>Enter your DNA sequence in the box below:</p>
-            <textarea cols="60" rows="7" id="sequence"></textarea>
+            <textarea cols="80" rows="7" id="sequence"></textarea>
             <div class="radio">
                 <label class="radio-inline">
                     <input type="radio" name="complement_options" id="complement" value="complement" checked> Complement

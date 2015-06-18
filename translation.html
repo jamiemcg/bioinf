@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Primer Melting Point Calculator - Bioinformatics Tools</title>
+        <title>Protein Translation - Bioinformatics Tools</title>
         <meta name="description" content="A collection of Bioinformatics/Biology Tools">
         <meta name="keywords" content="Biology, Bioinformatics, DNA, Melting Point, Translation, Complement, GC Content">
-        <meta name="author" content="Jamie McGowan">
+        <meta name=
+    "author" content="Jamie McGowan">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -17,22 +18,47 @@
             <li role="presentation"><a href="complement.html">Complementary Strand</a></li>
             <li role="presentation" class="disabled"><a href="#">DNA Molecular Weight</a></li>
             <li role="presentation"><a href="gc.html">GC Content</a></li>
-            <li role="presentation" class="active"><a href="primer.html">Primer Melting Point</a></li>
+            <li role="presentation"><a href="primer.html">Primer Melting Point</a></li>
             <li role="presentation" class="disabled"><a href="#">Transcription</a></li>
-            <li role="presentation"><a href="translation.html">Translation</a></li>
+            <li role="presentation" class="active"><a href="#">Translation</a></li>
         </ul>
 
         <div class="page_container">
-            <h1>Primer Melting Point Calculator</h1>
-            <p>Enter your DNA sequence of your primer in the box below:</p>
-            <textarea cols="80" rows="7" id="sequence"></textarea><br>
-            <button id="calculate" type="button" class="btn btn-primary" onclick="primerMP();">Calculate</button>
+            <h1>Protein Translation</h1>
+            <p>Enter your RNA/DNA sequence in the box below:</p>
+            <textarea cols="80" rows="7" id="sequence"></textarea>
+            <div class="checkbox">
+                <label>Forward Frame: </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="for1" value="for1" checked> 1
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="for2" value="for2" checked> 2
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="for3" value="for3" checked> 3
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>Reverse Frame: </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="rev1" value="rev1" checked> 1
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="rev2" value="rev2" checked> 2
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="rev3" value="rev3" checked> 3
+                </label>
+            </div>
+            <button id="calculate" type="button" class="btn btn-primary" onclick="trans();">Translate</button>
             <button id="clear" type="button" class="btn btn-danger" onclick="clearInput();">Clear</button>
-            <br><br>
 
+            <br><br>
             <!-- results shown here, hidden on page load -->
             <div id="results_container" style="display: none;">
-                <p>Primer Melting Point: <span id="result">100.00</span> &deg;C</p>
+                <h4>Result:</h4>
+                <p id="result"></p>
             </div>
         </div>
 
@@ -46,5 +72,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/translate.js"></script>
     </body>
 </html>

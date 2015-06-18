@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>GC Content Calculator - Bioinformatics Functions</title>
+        <title>GC Content Calculator - Bioinformatics Tools</title>
         <meta name="description" content="A collection of Bioinformatics/Biology Tools">
         <meta name="keywords" content="Biology, Bioinformatics, DNA, Melting Point, Translation, Complement, GC Content">
         <meta name="author" content="Jamie McGowan">
@@ -13,17 +13,20 @@
     <body>
         <ul class="nav nav-pills">
             <li role="presentation"><a href="index.html">Home</a></li>
+            <li role="presentation" class="disabled"><a href="#">Codon Usage</a></li>
             <li role="presentation"><a href="complement.html">Complementary Strand</a></li>
             <li role="presentation" class="disabled"><a href="#">DNA Molecular Weight</a></li>
             <li role="presentation" class="active"><a href="#">GC Content</a></li>
             <li role="presentation"><a href="primer.html">Primer Melting Point</a></li>
-            <li role="presentation" class="disabled"><a href="#">Translation</a></li>
+            <li role="presentation" class="disabled"><a href="#">Transcription</a></li>
+            <li role="presentation"><a href="translation.html">Translation</a></li>
         </ul>
 
         <div class="page_container">
             <h1>GC Content Calculator</h1>
-            <p>Enter your DNA sequence in the box below:</p>
-            <textarea cols="60" rows="7" id="sequence"></textarea><br>
+            <p>The program calculates the GC content of a given DNA/RNA sequence.</p>
+            <p>Enter your DNA/RNA sequence in the box below:</p>
+            <textarea cols="80" rows="7" id="sequence"></textarea><br>
             <button id="calculate" type="button" class="btn btn-primary" onclick="gc();">Calculate</button>
             <button id="clear" type="button" class="btn btn-danger" onclick="clearInputGC();">Clear</button>
             <br><br>
@@ -51,7 +54,7 @@
                             <td>G</td><td id="g_count">0</td><td id="g_per">00.00</td>
                         </tr>
                         <tr>
-                            <td>T</td><td id="t_count">0</td><td id="t_per">00.00</td>
+                            <td>T/U</td><td id="t_count">0</td><td id="t_per">00.00</td>
                         </tr>
                         <tr>
                             <td>Error</td><td id="error_count">0</td><td id="error_per">00.00</td>
