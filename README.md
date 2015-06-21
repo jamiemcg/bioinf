@@ -5,7 +5,7 @@ Visit the site here: https://jamiemcg.github.io/bioinf/
 
 Planned functions:
 - [X] DNA complement strand
-- [X] DNA transcription
+- [ ] DNA transcription
 - [X] DNA translation
 - [x] GC content
 - [ ] Molecular weight
