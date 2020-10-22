@@ -61,7 +61,7 @@ function gc() {
 				else if (sequence[j] === "G") {
 					g += 1;
 				}
-				else if (sequence[j] === "T") {
+				else if (sequence[j] === "T" || sequence[j] === "U") {
 					t += 1;
 				}
 				else {
