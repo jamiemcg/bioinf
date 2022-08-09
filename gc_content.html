@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DNA Reverse Complement Calculator - Bioinformatics Tools</title>
+    <title>GC Content Calculator - Bioinformatics Tools</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link href="styles/main.css" rel="stylesheet">
 
@@ -22,8 +22,8 @@
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <a href="index.html" class="btn btn-light" role="button">Home</a>
-            <a href="gc_content.html" class="btn btn-light" role="button">GC Content</a>
-            <a href="#" class="btn btn-dark" role="button">Reverse Complement</a>
+            <a href="#" class="btn btn-dark" role="button">GC Content</a>
+            <a href="complement.html" class="btn btn-light" role="button">Reverse Complement</a>
             <a href="translation.html" class="btn btn-light" role="button">Translation</a>
             <a href="#" class="btn btn-light disabled" role="button" aria-disabled="true">Venn Diagram</a>
             <!-- <a href="#" class="btn btn-light" role="button">Original</a> -->
@@ -36,29 +36,11 @@
       </div>
 
     <div class="container">
-        <h2>DNA Reverse Complement Calculator</h2>
-        <p>This program converts a nucleotide (DNA/RNA) sequence into complement, reverse, or reverse complement sequence</p>
-        <p>Enter a DNA/RNA sequence in the box below in FASTA or plaintext format:</p>
+        <h2>GC Content Calculator</h2>
+        <p>This program calculates the GC % content of a given DNA/RNA sequence.</p>
+        <p>Enter your DNA/RNA sequence in the box below in FASTA or plaintext format:</p>
         <p><textarea id="sequence" cols="80" rows="7"></textarea></p>
-        
-    
-        <!-- Radio button to choose complement, reverse, or reverse complement -->
-        <p>
-        <div class="form-check form-check-inline" id="convert-option-form">
-            <input class="form-check-input" type="radio" name="convert-option" id="inlineRadio1" value="complement">
-            <label class="form-check-label" for="inlineRadio1">Complement</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="convert-option" id="inlineRadio2" value="reverse">
-            <label class="form-check-label" for="inlineRadio2">Reverse</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="convert-option" id="inlineRadio3" value="reverse_complement" checked>
-            <label class="form-check-label" for="inlineRadio3">Reverse Complement</label>
-        </div>
-        </p>
-
-        <button id="button-convert" class="btn btn-dark">Convert</button>
+        <button id="button-calculate" class="btn btn-dark">Calculate</button>
         <button id="button-clear" class="btn btn-light">Clear</button>
     </div>
 
@@ -66,9 +48,46 @@
 
     <div id="results-card" class="container" style="display: none;">
         <div class="card">
-            <div class="card-header"><strong id="result-type"></strong></div>
+            <div class="card-header"><strong>Results</strong></div>
             <div class="card-body">
-                <p id="result-sequence" style="font-family: monospace;"></p>
+                <p>GC content: <span id="gc-content">0</span>%</p>
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Base</th>
+                            <th scope="col">Count</th>
+                            <th scope="col">Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">A</th>
+                            <td id="a-count">0</td>
+                            <td id="a-percent">0.00%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">C</th>
+                            <td id="c-count">0</td>
+                            <td id="c-percent">0.00%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">G</th>
+                            <td id="g-count">0</td>
+                            <td id="g-percent">0.00%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">T/U</th>
+                            <td id="t-count">0</td>
+                            <td id="t-percent">0.00%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Other</th>
+                            <td id="other-count">0</td>
+                            <td id="other-percent">0.00%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
             </div>
         </div>
     </div>
@@ -83,6 +102,6 @@
 
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-      <script src="js/complement.js"></script>
+      <script src="js/gc.js"></script>
   </body>
 </html>

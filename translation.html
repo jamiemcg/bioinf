@@ -1,77 +1,195 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>Protein Translation - Bioinformatics Tools</title>
-        <meta name="description" content="A collection of Bioinformatics/Biology Tools">
-        <meta name="keywords" content="Biology, Bioinformatics, DNA, Melting Point, Translation, Complement, GC Content">
-        <meta name=
-    "author" content="Jamie McGowan">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Protein Translation - Bioinformatics Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="styles/main.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107699160-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-107699160-2');
+    </script>
   </head>
-    <body>
-        <ul class="nav nav-pills">
-            <li role="presentation"><a href="index.html">Home</a></li>
-            <li role="presentation" class="disabled"><a href="#">Codon Usage</a></li>
-            <li role="presentation"><a href="complement.html">Complementary Strand</a></li>
-            <li role="presentation" class="disabled"><a href="#">DNA Molecular Weight</a></li>
-            <li role="presentation"><a href="gc.html">GC Content</a></li>
-            <li role="presentation"><a href="primer.html">Primer Melting Point</a></li>
-            <li role="presentation" class="disabled"><a href="#">Transcription</a></li>
-            <li role="presentation" class="active"><a href="#">Translation</a></li>
-        </ul>
+  <body>
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <a href="index.html" class="btn btn-light" role="button">Home</a>
+            <a href="gc_content.html" class="btn btn-light" role="button">GC Content</a>
+            <a href="complement.html" class="btn btn-light" role="button">Reverse Complement</a>
+            <a href="#" class="btn btn-dark" role="button">Translation</a>
+            <a href="#" class="btn btn-light disabled" role="button" aria-disabled="true">Venn Diagram</a>
+            <!-- <a href="#" class="btn btn-light" role="button">Original</a> -->
+          </ul>
+    
+          <div class="col-md-3 text-end">
+            <!-- <a href="#" class="btn btn-primary" role="button">Right</a> -->
+          </div>
+        </header>
+      </div>
 
-        <div class="page_container">
-            <h1>Protein Translation</h1>
-            <p>Enter your RNA/DNA sequence in the box below:</p>
-            <textarea cols="80" rows="7" id="sequence"></textarea>
-            <div class="checkbox">
-                <label>Forward Frame: </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="for1" value="for1" checked> 1
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="for2" value="for2" checked> 2
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="for3" value="for3" checked> 3
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>Reverse Frame: </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="rev1" value="rev1" checked> 1
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="rev2" value="rev2" checked> 2
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="rev3" value="rev3" checked> 3
-                </label>
-            </div>
-            <button id="calculate" type="button" class="btn btn-primary" onclick="trans();">Translate</button>
-            <button id="clear" type="button" class="btn btn-danger" onclick="clearInput();">Clear</button>
+    <div class="container">
+        <h2>Protein Translation</h2>
+        <p>This program translates a nucleotide (DNA/RNA) sequence into a protein sequence.</p>
+        <p>Enter a DNA/RNA sequence in the box below in FASTA or plaintext format:</p>
+        <p><textarea id="sequence" cols="80" rows="7"></textarea></p>
+        
+        <!-- Hidden selection for alternative genetic codes -->
+        <p>
+          <button class="btn btn-success" id="button-genetic-code" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Change Genetic Code
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <p>Edit the genetic code below:</p>
+          <div style="font-family: monospace">
+            <span style="padding-left:10px;">TTT </span><input id="genetic-code-TTT" type="text" max-length="1" class="input-genetic-code" value="F"/>
+            <span style="padding-left:10px;">TTC </span><input id="genetic-code-TTC" type="text" max-length="1" class="input-genetic-code" value="F"/>
+            <span style="padding-left:10px;">TTA </span><input id="genetic-code-TTA" type="text" max-length="1" class="input-genetic-code" value="L"/>
+            <span style="padding-left:10px;">TTG </span><input id="genetic-code-TTG" type="text" max-length="1" class="input-genetic-code" value="L"/>
+            <span style="padding-left:10px;">TCT </span><input id="genetic-code-TCT" type="text" max-length="1" class="input-genetic-code" value="S"/>
+            <span style="padding-left:10px;">TCC </span><input id="genetic-code-TCC" type="text" max-length="1" class="input-genetic-code" value="S"/>
+            <span style="padding-left:10px;">TCA </span><input id="genetic-code-TCA" type="text" max-length="1" class="input-genetic-code" value="S"/>
+            <span style="padding-left:10px;">TCG </span><input id="genetic-code-TCG" type="text" max-length="1" class="input-genetic-code" value="S"/>
+            <br>
+            <span style="padding-left:10px;">TAT </span><input id="genetic-code-TAT" type="text" max-length="1" class="input-genetic-code" value="Y"/>
+            <span style="padding-left:10px;">TAC </span><input id="genetic-code-TAC" type="text" max-length="1" class="input-genetic-code" value="Y"/>
+            <span style="padding-left:10px;">TAA </span><input id="genetic-code-TAA" type="text" max-length="1" class="input-genetic-code" value="*"/>
+            <span style="padding-left:10px;">TAG </span><input id="genetic-code-TAG" type="text" max-length="1" class="input-genetic-code" value="*"/>
+            <span style="padding-left:10px;">TGT </span><input id="genetic-code-TGT" type="text" max-length="1" class="input-genetic-code" value="C"/>
+            <span style="padding-left:10px;">TGC </span><input id="genetic-code-TGC" type="text" max-length="1" class="input-genetic-code" value="C"/>
+            <span style="padding-left:10px;">TGA </span><input id="genetic-code-TGA" type="text" max-length="1" class="input-genetic-code" value="*"/>
+            <span style="padding-left:10px;">TGG </span><input id="genetic-code-TGG" type="text" max-length="1" class="input-genetic-code" value="W"/>
+            <br>
+            <span style="padding-left:10px;">CTT </span><input id="genetic-code-CTT" type="text" max-length="1" class="input-genetic-code" value="L"/>
+            <span style="padding-left:10px;">CTC </span><input id="genetic-code-CTC" type="text" max-length="1" class="input-genetic-code" value="L"/>
+            <span style="padding-left:10px;">CTA </span><input id="genetic-code-CTA" type="text" max-length="1" class="input-genetic-code" value="L"/>
+            <span style="padding-left:10px;">CTG </span><input id="genetic-code-CTG" type="text" max-length="1" class="input-genetic-code" value="L"/>
+            <span style="padding-left:10px;">CCT </span><input id="genetic-code-CCT" type="text" max-length="1" class="input-genetic-code" value="P"/>
+            <span style="padding-left:10px;">CCC </span><input id="genetic-code-CCC" type="text" max-length="1" class="input-genetic-code" value="P"/>
+            <span style="padding-left:10px;">CCA </span><input id="genetic-code-CCA" type="text" max-length="1" class="input-genetic-code" value="P"/>
+            <span style="padding-left:10px;">CCG </span><input id="genetic-code-CCG" type="text" max-length="1" class="input-genetic-code" value="P"/>
+            <br>
+            <span style="padding-left:10px;">CAT </span><input id="genetic-code-CAT" type="text" max-length="1" class="input-genetic-code" value="H"/>
+            <span style="padding-left:10px;">CAC </span><input id="genetic-code-CAC" type="text" max-length="1" class="input-genetic-code" value="H"/>
+            <span style="padding-left:10px;">CAA </span><input id="genetic-code-CAA" type="text" max-length="1" class="input-genetic-code" value="Q"/>
+            <span style="padding-left:10px;">CAG </span><input id="genetic-code-CAG" type="text" max-length="1" class="input-genetic-code" value="Q"/>
+            <span style="padding-left:10px;">CGT </span><input id="genetic-code-CGT" type="text" max-length="1" class="input-genetic-code" value="R"/>
+            <span style="padding-left:10px;">CGC </span><input id="genetic-code-CGC" type="text" max-length="1" class="input-genetic-code" value="R"/>
+            <span style="padding-left:10px;">CGA </span><input id="genetic-code-CGA" type="text" max-length="1" class="input-genetic-code" value="R"/>
+            <span style="padding-left:10px;">CGG </span><input id="genetic-code-CGG" type="text" max-length="1" class="input-genetic-code" value="R"/>
+            <br>
+            <span style="padding-left:10px;">ATT </span><input id="genetic-code-ATT" type="text" max-length="1" class="input-genetic-code" value="I"/>
+            <span style="padding-left:10px;">ATC </span><input id="genetic-code-ATC" type="text" max-length="1" class="input-genetic-code" value="I"/>
+            <span style="padding-left:10px;">ATA </span><input id="genetic-code-ATA" type="text" max-length="1" class="input-genetic-code" value="I"/>
+            <span style="padding-left:10px;">ATG </span><input id="genetic-code-ATG" type="text" max-length="1" class="input-genetic-code" value="M"/>
+            <span style="padding-left:10px;">ACT </span><input id="genetic-code-ACT" type="text" max-length="1" class="input-genetic-code" value="T"/>
+            <span style="padding-left:10px;">ACC </span><input id="genetic-code-ACC" type="text" max-length="1" class="input-genetic-code" value="T"/>
+            <span style="padding-left:10px;">ACA </span><input id="genetic-code-ACA" type="text" max-length="1" class="input-genetic-code" value="T"/>
+            <span style="padding-left:10px;">ACG </span><input id="genetic-code-ACG" type="text" max-length="1" class="input-genetic-code" value="T"/>
+            <br>
+            <span style="padding-left:10px;">AAT </span><input id="genetic-code-AAT" type="text" max-length="1" class="input-genetic-code" value="N"/>
+            <span style="padding-left:10px;">AAC </span><input id="genetic-code-AAC" type="text" max-length="1" class="input-genetic-code" value="N"/>
+            <span style="padding-left:10px;">AAA </span><input id="genetic-code-AAA" type="text" max-length="1" class="input-genetic-code" value="K"/>
+            <span style="padding-left:10px;">AAG </span><input id="genetic-code-AAG" type="text" max-length="1" class="input-genetic-code" value="K"/>
+            <span style="padding-left:10px;">AGT </span><input id="genetic-code-AGT" type="text" max-length="1" class="input-genetic-code" value="S"/>
+            <span style="padding-left:10px;">AGC </span><input id="genetic-code-AGC" type="text" max-length="1" class="input-genetic-code" value="S"/>
+            <span style="padding-left:10px;">AGA </span><input id="genetic-code-AGA" type="text" max-length="1" class="input-genetic-code" value="R"/>
+            <span style="padding-left:10px;">AGG </span><input id="genetic-code-AGG" type="text" max-length="1" class="input-genetic-code" value="R"/>
+            <br>
+            <span style="padding-left:10px;">GTT </span><input id="genetic-code-GTT" type="text" max-length="1" class="input-genetic-code" value="V"/>
+            <span style="padding-left:10px;">GTC </span><input id="genetic-code-GTC" type="text" max-length="1" class="input-genetic-code" value="V"/>
+            <span style="padding-left:10px;">GTA </span><input id="genetic-code-GTA" type="text" max-length="1" class="input-genetic-code" value="V"/>
+            <span style="padding-left:10px;">GTG </span><input id="genetic-code-GTG" type="text" max-length="1" class="input-genetic-code" value="V"/>
+            <span style="padding-left:10px;">GCT </span><input id="genetic-code-GCT" type="text" max-length="1" class="input-genetic-code" value="A"/>
+            <span style="padding-left:10px;">GCC </span><input id="genetic-code-GCC" type="text" max-length="1" class="input-genetic-code" value="A"/>
+            <span style="padding-left:10px;">GCA </span><input id="genetic-code-GCA" type="text" max-length="1" class="input-genetic-code" value="A"/>
+            <span style="padding-left:10px;">GCG </span><input id="genetic-code-GCG" type="text" max-length="1" class="input-genetic-code" value="A"/>
+            <br>
+            <span style="padding-left:10px;">GAT </span><input id="genetic-code-GAT" type="text" max-length="1" class="input-genetic-code" value="D"/>
+            <span style="padding-left:10px;">GAC </span><input id="genetic-code-GAC" type="text" max-length="1" class="input-genetic-code" value="D"/>
+            <span style="padding-left:10px;">GAA </span><input id="genetic-code-GAA" type="text" max-length="1" class="input-genetic-code" value="E"/>
+            <span style="padding-left:10px;">GAG </span><input id="genetic-code-GAG" type="text" max-length="1" class="input-genetic-code" value="E"/>
+            <span style="padding-left:10px;">GGT </span><input id="genetic-code-GGT" type="text" max-length="1" class="input-genetic-code" value="G"/>
+            <span style="padding-left:10px;">GGC </span><input id="genetic-code-GGC" type="text" max-length="1" class="input-genetic-code" value="G"/>
+            <span style="padding-left:10px;">GGA </span><input id="genetic-code-GGA" type="text" max-length="1" class="input-genetic-code" value="G"/>
+            <span style="padding-left:10px;">GGG </span><input id="genetic-code-GGG" type="text" max-length="1" class="input-genetic-code" value="G"/>
+            
+              
 
-            <br><br>
-            <!-- results shown here, hidden on page load -->
-            <div id="results_container" style="display: none;">
-                <h4>Result:</h4>
-                <p id="result"></p>
-            </div>
+            <p>(* = STOP)</p>
+          </div>
+          
+          
+          <!-- <div class="card card-body">
+            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+          </div> -->
         </div>
 
+        <!-- Checkboxes to pick reading frames -->
+        <p>Forward frame:</p>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="check-forward-frame-1" value="1" checked>
+          <label class="form-check-label" for="inlineCheckbox1">1</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="check-forward-frame-2" value="2" checked>
+          <label class="form-check-label" for="inlineCheckbox2">2</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="check-forward-frame-3" value="3" checked>
+          <label class="form-check-label" for="inlineCheckbox3">3</label>
+        </div>
 
-        <footer class="footer">
-            <div class="container">
-                <p class="text-muted">&copy; Jamie McGowan, 2015</p>
+        <p>Reverse frame:</p>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="check-reverse-frame-1" value="1" checked>
+          <label class="form-check-label" for="inlineCheckbox1">1</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="check-reverse-frame-2" value="2" checked>
+          <label class="form-check-label" for="inlineCheckbox2">2</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="check-reverse-frame-3" value="3" checked>
+          <label class="form-check-label" for="inlineCheckbox3">3</label>
+        </div>
+        
+        <br>
+        <br>
+
+        <button id="button-translate" class="btn btn-dark">Translate</button>
+        <button id="button-clear" class="btn btn-light">Clear</button>
+    </div>
+
+    <br>
+
+    <div id="results-card" class="container" style="display: none;">
+        <div class="card">
+            <div class="card-header"><strong>Results</strong></div>
+            <div class="card-body">
+                <p id="result-sequence" style="font-family: monospace;"></p>
             </div>
-        </footer>
+        </div>
+    </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/translate.js"></script>
-    </body>
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div class="col-md-4 d-flex align-items-center">
+            <a class="inherit" href="https://jamiemcgowan.ie" target="_blank"><span class="mb-3 mb-md-0 text-muted"></span>Jamie McGowan, 2022</span></a>
+          </div>
+        </footer>
+      </div>
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+      <script src="js/translation.js"></script>
+  </body>
 </html>

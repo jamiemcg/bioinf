@@ -1,0 +1,25 @@
+.inherit {
+    color: inherit;
+    text-decoration: inherit    ;
+}
+
+textarea {
+    resize: both;
+    font-family: monospace;
+}
+
+.input-genetic-code {
+    width: 25px;
+}
+
+#tool-list {
+    max-width: 30%;
+}
+
+.stop {
+    background-color: #f75c5c;
+}
+
+.start {
+    background-color: #aaf75c;
+}
