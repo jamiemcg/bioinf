@@ -103,6 +103,5 @@ $("#button-calculate").click(function() {
 
 $("#button-clear").click(function() {
     $("#sequence").val("");
-
     $("#results-card").hide(500)
 });
