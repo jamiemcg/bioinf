@@ -82,7 +82,7 @@ function calculateCodonUsage(sequence) {
 $("#button-calculate").click(function() {
     var sequence = "";
 
-    var lines = $("#sequence").val().toUpperCase().split("\n");
+    var lines = $("#sequence").val().toUpperCase().replaceAll("U", "T").split("\n");
     for (var i = 0; i < lines.length; i++) {
         if (lines[i].trim()[0] != ">") {
             sequence += lines[i].trim();
