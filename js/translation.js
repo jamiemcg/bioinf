@@ -140,7 +140,7 @@ function main() {
     }
     
 
-    if(sequence.length > 3) {
+    if(sequence.length >= 3) {
         var reverse_complement = reverseComplement(sequence);
         html = "";
 
@@ -188,6 +188,9 @@ function main() {
 
         $("#result-sequence").html(html);
         $("#results-card").show(500)
+    }
+    else {
+        alert("Enter a sequence at least 3bp in length")
     }
 }
 
