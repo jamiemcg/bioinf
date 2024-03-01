@@ -23,3 +23,7 @@ textarea {
 .start {
     background-color: #aaf75c;
 }
+
+label {
+    padding-bottom: 5px;
+}

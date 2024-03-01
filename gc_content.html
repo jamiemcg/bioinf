@@ -25,9 +25,11 @@
             <a href="index.html" class="btn btn-light" role="button">Home</a>
             <a href="codon_usage.html" class="btn btn-light" role="button">Codon Usage</a>
             <a href="#" class="btn btn-dark" role="button">GC Content</a>
+            <a href="gc_skew.html" class="btn btn-light" role="button">GC Skew</a>
             <a href="iupac_to_regex.html" class="btn btn-light" role="button">IUPAC to regex</a>
             <a href="complement.html" class="btn btn-light" role="button">Reverse Complement</a>
             <a href="translation.html" class="btn btn-light" role="button">Translation</a>
+            <a href="#" class="btn btn-light disabled" role="button" aria-disabled="true">Plotting Tools</a>
             <a href="#" class="btn btn-light disabled" role="button" aria-disabled="true">Venn Diagram</a>
             <!-- <a href="#" class="btn btn-light" role="button">Original</a> -->
           </ul>
@@ -41,6 +43,7 @@
     <div class="container">
         <h2>GC Content Calculator</h2>
         <p>This program calculates the % GC (guanine / cytosine) content of a given DNA/RNA sequence.</p>
+        <p>(Use the <a target="_blank" href="./gc_skew.html">GC Skew Tool</a> if you want to plot the GC content)</p>
         <p>Enter your DNA/RNA sequence in the box below in FASTA or plaintext format:</p>
         <p><textarea id="sequence" cols="80" rows="7"></textarea></p>
         <button id="button-calculate" class="btn btn-dark">Calculate</button>
