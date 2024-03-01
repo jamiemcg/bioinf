@@ -107,6 +107,7 @@ $("#button-plot").click(function() {
 	  };
 
 	Plotly.newPlot("plotting-div", [gc_content_plot], layout)
+	$("#plotting-div").show(500);
 });
 
 $("#button-clear").click(function() {
