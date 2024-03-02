@@ -91,6 +91,7 @@ $("#button-calculate").click(function() {
 	}
 
     $("#gc-content").html(gc_percent);
+	$("#length").html(seq_length);
 
 	$("#a-percent").html(a_percent);
 	$("#c-percent").html(c_percent);
