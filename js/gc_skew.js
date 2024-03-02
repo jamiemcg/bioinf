@@ -47,12 +47,12 @@ $("#button-plot").click(function() {
 		return;
 	}
 
-	if ($("#input-sliding-window").is(":checked")) {
+	// if ($("#input-sliding-window").is(":checked")) {
 
-	}
-	else {
-		// pass
-	}
+	// }
+	// else {
+	// 	// pass
+	// }
 
 	x_positions = new Array();
 	gc_values = new Array();
@@ -72,39 +72,65 @@ $("#button-plot").click(function() {
 		type: "scatter"
 	}
 
-	var layout = {
-		shapes: [{
-			type: "line",
-			y0: full_gc,
-			y1: full_gc,
-			x0: 0,
-			x1: x_positions[x_positions.length - 1],
-			line: {
-				color: 'rgb(0, 0, 0)',
-				width: 4
+	if($("#input-show-mean").is(":checked")) {
+		var layout = {
+			shapes: [{
+				type: "line",
+				y0: full_gc,
+				y1: full_gc,
+				x0: 0,
+				x1: x_positions[x_positions.length - 1],
+				line: {
+					color: 'rgb(0, 0, 0)',
+					width: 4
+				}
+			}],
+			xaxis: {
+			title: {
+				text: 'Position (bp)',
+				font: {
+				family: 'Arial',
+				size: 18,
+				color: '#000000'
+				}
+			},
+			},
+			yaxis: {
+			title: {
+				text: '% GC Content',
+				font: {
+				family: 'Arial',
+				size: 18,
+				color: '#000000'
+				}
 			}
-		}],
-		xaxis: {
-		  title: {
-			text: 'Position (bp)',
-			font: {
-			  family: 'Arial',
-			  size: 18,
-			  color: '#000000'
 			}
-		  },
-		},
-		yaxis: {
-		  title: {
-			text: '% GC Content',
-			font: {
-			  family: 'Arial',
-			  size: 18,
-			  color: '#000000'
+		};
+	}
+	else {
+		var layout = {
+			xaxis: {
+			title: {
+				text: 'Position (bp)',
+				font: {
+				family: 'Arial',
+				size: 18,
+				color: '#000000'
+				}
+			},
+			},
+			yaxis: {
+			title: {
+				text: '% GC Content',
+				font: {
+				family: 'Arial',
+				size: 18,
+				color: '#000000'
+				}
 			}
-		  }
-		}
-	  };
+			}
+		};
+	}
 
 	$("#plotting-div").show();
 	 Plotly.newPlot("plotting-div", [gc_content_plot], layout) 
