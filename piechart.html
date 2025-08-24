@@ -1,30 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Online tool to generate violin plots.">
-  <title>Violin Plot Maker - Bioinformatics Tools</title>
+  <meta name="description" content="Online tool to generate pie charts.">
+  <title>Pie Chart Maker - Bioinformatics Tools</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles/main.css" rel="stylesheet">
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107699160-2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'UA-107699160-2');
-  </script>
 </head>
-
 <body>
   <div class="container">
-    <header
-      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <a href="index.html" class="btn btn-light" role="button">Home</a>
 
@@ -72,11 +58,11 @@
             <li><a class="dropdown-item" href="boxplot.html">Box Plot</a></li>
             <li><a class="dropdown-item" href="donut_plot.html">Donut Plot</a></li>
             <li><a class="dropdown-item disabled" href="#">Line Plot</a></li>
-            <li><a class="dropdown-item" href="piechart.html">Pie Chart</a></li>
+            <li><a class="dropdown-item dropdown-focused" href="#">Pie Chart</a></li>
             <li><a class="dropdown-item disabled" href="#">Ridgeline Plot</a></li>
             <li><a class="dropdown-item disabled" href="#">Scatter Plot</a></li>
             <li><a class="dropdown-item disabled" href="#">Venn Diagram</a></li>
-            <li><a class="dropdown-item dropdown-focused" href="#">Violin Plot</a></li>
+            <li><a class="dropdown-item" href="violinplot.html">Violin Plot</a></li>
           </ul>
         </div>
         <!-- <a href="#" class="btn btn-light" role="button">Original</a> -->
@@ -89,18 +75,16 @@
   </div>
 
   <div class="container">
-    <h2>Violin Plot Generator</h2>
-    <p>Enter data for each group below. Each group can be given a name and a list of values (one per line).</p>
+    <h2>Pie Chart Maker</h2>
+    <p>Enter one slice per line. Format: <code>&lt;numeric value&gt;, &lt;label&gt;</code>. You can also separate with spaces or tabs.</p>
 
-    <div id="groups-container" class="row mb-3">
-      <!-- Group input blocks will be dynamically added here -->
+    <div class="mb-3">
+      <label class="form-label">Data:</label>
+      <textarea class="form-control" id="pie-data" rows="6" placeholder="50, Category A
+60, Category B
+20, Category C"></textarea>
     </div>
 
-    <button id="add-group" class="btn btn-secondary mb-3">Add Group (+)</button>
-
-    <br>
-
-    <!-- Settings panel -->
     <div class="mt-4 border-top pt-4">
       <h5>Plot Settings</h5>
       <div class="row">
@@ -108,23 +92,14 @@
           <label for="plot-width" class="form-label">Width (px):</label>
           <input type="number" class="form-control" id="plot-width" value="700">
         </div>
-        <div class="col-md-4">
-          <label for="plot-height" class="form-label">Height (px):</label>
-          <input type="number" class="form-control" id="plot-height" value="500">
-        </div>
-        <div class="col-md-4">
-          <label for="y-axis-label" class="form-label">Y-axis Label:</label>
-          <input type="text" class="form-control" id="y-axis-label" value="Value">
-        </div>
       </div>
     </div>
 
     <br>
-    <button id="plot-btn" class="btn btn-dark">Plot Boxplot</button>
+    <button id="plot-btn" class="btn btn-dark">Plot Pie Chart</button>
     <button id="clear-btn" class="btn btn-light">Clear</button>
 
     <div id="plot-container" class="mt-4"></div>
-
   </div>
 
   <div class="container">
@@ -141,7 +116,6 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.29.1.min.js"></script>
-  <script src="js/violin_plot.js"></script>
+  <script src="js/pie_chart.js"></script>
 </body>
-
 </html>
