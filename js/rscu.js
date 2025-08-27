@@ -1,6 +1,3 @@
-var previousAlertMultipleSeqs = false;
-var previousAlertCharacters = false;
-
 const codonDict = {
     'TTT': 'F', 'TTC': 'F', 'TTA': 'L', 'TTG': 'L',
     'CTT': 'L', 'CTC': 'L', 'CTA': 'L', 'CTG': 'L',
@@ -46,24 +43,35 @@ aa_codons["*"] = 3 //(TAA, TAG, TGA)
 // Calculate RSCU usage from a DNA sequence
 // RSCU of codon x = (count of codon x / (total count of synonymous codons / number of synonymous codons))
 
+function parseFasta(fastaText) {
+  return fastaText
+    .trim()
+    .split(/^>|\n>/m)      // split on ">"
+    .filter(Boolean)       // remove empties
+    .map(entry => {
+      const lines = entry.split(/\r?\n/);
+      return lines.slice(1).join("").replace(/\s+/g, "");
+    });
+}
 
-
-function calculateRSCU(sequence) {
+function calculateRSCU(sequences) {
     var codonCount = {};
     var aminoAcidCount = {};
     var totalCodons = 0;
 
-    for (const codon in codonDict) {
+    for(const codon in codonDict) {
         codonCount[codon] = 0;
         aminoAcidCount[codonDict[codon]] = 0;
     }
 
-    for (let i = 0; i < sequence.length; i += 3) {
-        const codon = sequence.slice(i, i + 3);
-        if (codon in codonDict) {
-            codonCount[codon] += 1;
-            aminoAcidCount[codonDict[codon]] += 1;
-            totalCodons += 1
+    for(const sequence of sequences) {
+        for(let i = 0; i < sequence.length; i += 3) {
+            const codon = sequence.slice(i, i + 3);
+            if (codon in codonDict) {
+                codonCount[codon] += 1;
+                aminoAcidCount[codonDict[codon]] += 1;
+                totalCodons += 1
+            }
         }
     }
 
@@ -106,31 +114,33 @@ function calculateRSCU(sequence) {
 }
 
 $("#button-calculate").click(function() {
-    var sequence = "";
-    var n_seqs = 0;
+    var text = $("#sequence").val().toUpperCase().replaceAll("U", "T");
+    var sequences = parseFasta(text)
+    var n_seqs = sequences.length;
+    var total_length = sequences.reduce((sum, str) => sum + str.length, 0);
 
+    $("#alert-invalid-fasta").remove();
+    $("#alert-multiple-seqs").remove();
+    $("#alert-invalid-characters").remove();
+    $("#alert-length-multiple").remove();
 
-    var lines = $("#sequence").val().toUpperCase().replaceAll("U", "T").split("\n");
-    for (var i = 0; i < lines.length; i++) {
-        if (lines[i].trim()[0] != ">") {
-            sequence += lines[i].trim();
-        }
-        else {
-            n_seqs += 1;
-        }
+    if ((n_seqs == 0 || total_length == 0) && !$("#alert-invalid-fasta").length) {
+        $("#alert-placeholder").append('<div id="alert-invalid-fasta" class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Warning:</strong> Enter sequences in valid fasta format. Check your input.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     }
 
-    if (n_seqs > 1 && previousAlertMultipleSeqs == false) {
-        $("#alert-placeholder").append('<div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Note:</strong> You have entered multiple sequences. This tool concatenates all input sequences together. You should ensure all of your sequences are in the correct reading frame, etc...<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-        previousAlertMultipleSeqs = true;
+    if (n_seqs > 1 && !$("#alert-multiple-seqs").length) {
+        $("#alert-placeholder").append('<div id="alert-multiple-seqs" class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Note:</strong> You have entered multiple sequences. You should ensure all of your sequences are in the correct reading frame, etc...<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     }
 
-    if (/[^ACGT]/.test(sequence) && previousAlertCharacters == false) {
-        $("#alert-placeholder").append('<div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Note:</strong> Your input text contains characters other than A, C, G, T, and U. Check your input.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-        previousAlertCharacters = true;
+    if(sequences.some(seq => /[^ACGT]/i.test(seq)) && !$("#alert-invalid-characters").length) {
+        $("#alert-placeholder").append('<div id="alert-invalid-characters" class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Warning:</strong> Your input text contains characters other than A, C, G, T, and U. Check your input<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     }
 
-    calculateRSCU(sequence);
+    if(sequences.some(seq => seq.length % 3 != 0) && !$("#alert-length-multiple").length) {
+        $("#alert-placeholder").append('<div id="alert-length-multiple" class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Warning:</strong> The length of some of your sequences are not a multiple of 3. Ensure they are in the correct reading frame. Check your input<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+    }
+
+    calculateRSCU(sequences);
 })
 
 
@@ -138,4 +148,9 @@ $("#button-clear").click(function() {
     $("#sequence").val("");
     $("#results-card").hide(500)
     $("#results").text("");
+
+    $("#alert-invalid-fasta").remove();
+    $("#alert-multiple-seqs").remove();
+    $("#alert-invalid-characters").remove();
+    $("#alert-length-multiple").remove();
 })
