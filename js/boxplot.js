@@ -64,12 +64,21 @@ $(document).ready(function () {
     const height = parseInt($('#plot-height').val()) || 500;
     const yAxisLabel = $('#y-axis-label').val() || 'Value';
 
+    const yMinVal = $('#y-axis-min').val();
+    const yMaxVal = $('#y-axis-max').val();
+    const yMin = yMinVal !== '' ? parseFloat(yMinVal) : null;
+    const yMax = yMaxVal !== '' ? parseFloat(yMaxVal) : null;
+
+    const yaxis = { title: yAxisLabel };
+    if (yMin !== null || yMax !== null) {
+      yaxis.range = [yMin, yMax];
+      yaxis.autorange = false;
+    }
+
     const layout = {
       width: width,
       height: height,
-      yaxis: {
-        title: yAxisLabel
-      },
+      yaxis: yaxis,
       margin: {
         l: 60,
         r: 30,

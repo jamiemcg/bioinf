@@ -44,6 +44,7 @@ function addGroup(name = "", data = "") {
 
     $('#plot-btn').click(function () {
       const traces = [];
+      const isHorizontal = $('#horizontal-plot').is(':checked');
 
       $('.group-block').each(function () {
         const groupName = $(this).find('.group-name').val().trim() || "Unnamed Group";
@@ -51,8 +52,7 @@ function addGroup(name = "", data = "") {
         const values = rawData.split('\n').map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
 
         if (values.length > 0) {
-          traces.push({
-            y: values,
+          const trace = {
             name: groupName,
             type: 'violin',
             points: 'all',
@@ -60,7 +60,16 @@ function addGroup(name = "", data = "") {
             box: {
               visible: true
             }
-          });
+          };
+
+          if (isHorizontal) {
+            trace.x = values;
+            trace.orientation = 'h';
+          } else {
+            trace.y = values;
+          }
+
+          traces.push(trace);
         }
       });
 
@@ -68,12 +77,20 @@ function addGroup(name = "", data = "") {
       const height = parseInt($('#plot-height').val()) || 500;
       const yAxisLabel = $('#y-axis-label').val() || 'Value';
 
+      const yMinVal = $('#y-axis-min').val();
+      const yMaxVal = $('#y-axis-max').val();
+      const yMin = yMinVal !== '' ? parseFloat(yMinVal) : null;
+      const yMax = yMaxVal !== '' ? parseFloat(yMaxVal) : null;
+
+      const valueAxis = { title: yAxisLabel };
+      if (yMin !== null || yMax !== null) {
+        valueAxis.range = [yMin, yMax];
+        valueAxis.autorange = false;
+      }
+
       const layout = {
         width: width,
         height: height,
-        yaxis: {
-          title: yAxisLabel
-        },
         margin: {
           l: 60,
           r: 30,
@@ -82,8 +99,23 @@ function addGroup(name = "", data = "") {
         },
         xaxis: {
           automargin: true
+        },
+        yaxis: {
+          automargin: true
         }
       };
+
+      if (isHorizontal) {
+        layout.xaxis = {
+          ...layout.xaxis,
+          ...valueAxis
+        };
+      } else {
+        layout.yaxis = {
+          ...layout.yaxis,
+          ...valueAxis
+        };
+      }
 
       if (traces.length > 0) {
         Plotly.newPlot('plot-container', traces, layout);
