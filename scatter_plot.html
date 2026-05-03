@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Online tool to generate box plots.">
-  <title>Box Plot Maker - Bioinformatics Tools</title>
+  <meta name="description" content="Online tool to generate scatter plots.">
+  <title>Scatter Plot Maker - Bioinformatics Tools</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles/main.css" rel="stylesheet">
 
@@ -71,34 +71,32 @@
 
             <ul class="dropdown-menu" aria-labelledby="plotting-dropdown">
               <li><a class="dropdown-item disabled" href="#">Bar Plot</a></li>
-              <li><a class="dropdown-item dropdown-focused" href="#">Box Plot</a></li>
+              <li><a class="dropdown-item" href="boxplot.html">Box Plot</a></li>
               <li><a class="dropdown-item" href="donut_plot.html">Donut Plot</a></li>
               <li><a class="dropdown-item disabled" href="#">Line Plot</a></li>
               <li><a class="dropdown-item" href="piechart.html">Pie Chart</a></li>
               <li><a class="dropdown-item disabled" href="#">Ridgeline Plot</a></li>
-              <li><a class="dropdown-item" href="scatter_plot.html">Scatter Plot</a></li>
+              <li><a class="dropdown-item dropdown-focused" href="#">Scatter Plot</a></li>
               <li><a class="dropdown-item disabled" href="#">Venn Diagram</a></li>
               <li><a class="dropdown-item" href="violinplot.html">Violin Plot</a></li>
             </ul>
           </div>
-          <!-- <a href="#" class="btn btn-light" role="button">Original</a> -->
         </ul>
 
         <div class="col-md-3 text-end">
-          <!-- <a href="#" class="btn btn-primary" role="button">Right</a> -->
         </div>
       </header>
     </div>
 
     <div class="container">
-      <h2>Box Plot Maker</h2>
-      <p>Enter data for each group below. Each group can be given a name and a list of values (one per line).</p>
+      <h2>Scatter Plot Maker</h2>
+      <p>Enter X and Y values for each series below. Each series can be given a name and paired X, Y values (one pair per line, separated by a comma or tab).</p>
 
-      <div id="groups-container" class="row mb-3">
-        <!-- Group input blocks will be dynamically added here -->
+      <div id="series-container" class="row mb-3">
+        <!-- Series input blocks will be dynamically added here -->
       </div>
 
-      <button id="add-group" class="btn btn-secondary mb-3">Add Group (+)</button>
+      <button id="add-series" class="btn btn-secondary mb-3">Add Series (+)</button>
 
       <br>
 
@@ -115,16 +113,42 @@
             <input type="number" class="form-control" id="plot-height" value="500">
           </div>
           <div class="col-md-4">
-            <label for="y-axis-label" class="form-label">Y-axis Label:</label>
-            <input type="text" class="form-control" id="y-axis-label" value="Value">
+            <label for="marker-size" class="form-label">Marker Size:</label>
+            <input type="number" class="form-control" id="marker-size" value="8" min="1" max="50">
           </div>
         </div>
         <div class="row mt-3">
           <div class="col-md-4">
+            <label for="x-axis-label" class="form-label">X-axis Label:</label>
+            <input type="text" class="form-control" id="x-axis-label" placeholder="X">
+          </div>
+          <div class="col-md-4">
+            <label for="y-axis-label" class="form-label">Y-axis Label:</label>
+            <input type="text" class="form-control" id="y-axis-label" placeholder="Y">
+          </div>
+          <div class="col-md-4">
+            <label for="plot-mode" class="form-label">Mode:</label>
+            <select class="form-select" id="plot-mode">
+              <option value="markers" selected>Markers only</option>
+              <option value="lines+markers">Lines + Markers</option>
+              <option value="lines">Lines only</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3">
+            <label for="x-axis-min" class="form-label">X-axis Min:</label>
+            <input type="number" class="form-control" id="x-axis-min" placeholder="Auto">
+          </div>
+          <div class="col-md-3">
+            <label for="x-axis-max" class="form-label">X-axis Max:</label>
+            <input type="number" class="form-control" id="x-axis-max" placeholder="Auto">
+          </div>
+          <div class="col-md-3">
             <label for="y-axis-min" class="form-label">Y-axis Min:</label>
             <input type="number" class="form-control" id="y-axis-min" placeholder="Auto">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="y-axis-max" class="form-label">Y-axis Max:</label>
             <input type="number" class="form-control" id="y-axis-max" placeholder="Auto">
           </div>
@@ -132,7 +156,7 @@
       </div>
 
       <br>
-      <button id="plot-btn" class="btn btn-dark">Plot Boxplot</button>
+      <button id="plot-btn" class="btn btn-dark">Plot Scatter Plot</button>
       <button id="clear-btn" class="btn btn-light">Clear</button>
 
       <div id="plot-container" class="mt-4"></div>
@@ -153,7 +177,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.29.1.min.js"></script>
-    <script src="js/boxplot.js"></script>
+    <script src="js/scatter_plot.js"></script>
   </body>
 
 </html>
